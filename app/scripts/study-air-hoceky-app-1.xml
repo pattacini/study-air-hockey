@@ -1,6 +1,6 @@
 <application>
 
-  <name>Study Air Hockey App</name>
+  <name>Study Air Hockey App 1</name>
 
   <dependencies>
       <port>/yarplogger</port>
@@ -10,18 +10,9 @@
   </dependencies>
 
   <module>
-      <name>study-air-hockey</name>
-      <parameters>--torso-n 1</parameters>
+      <name>study-air-hockey-1</name>
+      <parameters>--x0 "(-.25 .0 -.05)" --fixation "(-.7 .0 -.05)" --y-max 0.15 --y-delta 0.005 --torso-joints 1 --torso-pitch 30.0</parameters>
       <environment>YARP_FORWARD_LOG_ENABLE=1;YARP_CLOCK=/clock</environment>
-      <node>localhost</node>
-  </module>
-
-  <module>
-      <name>yarpscope</name>
-      <parameters>--remote /study-arm-hockey/log --index 0 --min 0.0 --max 0.2</parameters>
-      <dependencies>
-         <port timeout="20">/study-arm-hockey/log</port>
-      </dependencies>
       <node>localhost</node>
   </module>
 

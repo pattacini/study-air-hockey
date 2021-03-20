@@ -18,10 +18,10 @@ icubcontrib_set_default_prefix()
 
 add_subdirectory(gazebo)
 
-add_executable(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/src/main.cpp)
-target_compile_definitions(${PROJECT_NAME} PRIVATE _USE_MATH_DEFINES)
-target_link_libraries(${PROJECT_NAME} ${YARP_LIBRARIES})
-install(TARGETS ${PROJECT_NAME} DESTINATION bin)
+add_executable(${PROJECT_NAME}-1 ${CMAKE_SOURCE_DIR}/src/study-1.cpp)
+target_compile_definitions(${PROJECT_NAME}-1 PRIVATE _USE_MATH_DEFINES)
+target_link_libraries(${PROJECT_NAME}-1 ${YARP_LIBRARIES})
+install(TARGETS ${PROJECT_NAME}-1 DESTINATION bin)
 
 icubcontrib_add_uninstall_target()
 
