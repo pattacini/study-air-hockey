@@ -19,6 +19,8 @@
 #include <yarp/os/RFModule.h>
 #include <yarp/os/ResourceFinder.h>
 #include <yarp/os/Time.h>
+#include <yarp/os/BufferedPort.h>
+#include <yarp/os/Bottle.h>
 #include <yarp/sig/Vector.h>
 #include <yarp/sig/Matrix.h>
 #include <yarp/math/Math.h>
@@ -34,7 +36,11 @@ class ControllerModule: public yarp::os::RFModule
 
     int startup_context_id;
     yarp::sig::Vector x0, o0;
-    double period, t, t0;
+    const int neck_base_axis{2};
+    yarp::sig::Vector neck_base_x0;
+    double period, t0;
+
+    yarp::os::BufferedPort<yarp::os::Bottle> log;
 
     /********************************************************************/
     bool configure(yarp::os::ResourceFinder& rf) override {
@@ -61,6 +67,8 @@ class ControllerModule: public yarp::os::RFModule
             return false;
         }
 
+        log.open("/study-arm-hockey/log");
+
         driver.view(arm);
         arm->storeContext(&startup_context_id);
 
@@ -84,7 +92,11 @@ class ControllerModule: public yarp::os::RFModule
         x0 = yarp::sig::Vector{-.25, .0, -.05};
         arm->goToPoseSync(x0, o0);
         arm->waitMotionDone(.1, 2.);
-        t = t0 = yarp::os::Time::now();
+
+        yarp::sig::Vector o;
+        arm->getPose(neck_base_axis, neck_base_x0, o);
+
+        t0 = yarp::os::Time::now();
         return true;
     }
 
@@ -93,6 +105,7 @@ class ControllerModule: public yarp::os::RFModule
         arm->stopControl();
         arm->restoreContext(startup_context_id);
         driver.close();
+        log.close();
         return true;
     }
 
@@ -103,8 +116,16 @@ class ControllerModule: public yarp::os::RFModule
 
     /********************************************************************/
     bool updateModule() override {
-        t = yarp::os::Time::now();
-        arm->goToPose(x0 + yarp::sig::Vector{0., .15*sin(2.*M_PI*.2*(t - t0)), 0.}, o0);
+        auto t = yarp::os::Time::now();
+        arm->goToPose(x0 + yarp::sig::Vector{0., .15*sin(2.*M_PI*.1*(t - t0)), 0.}, o0);
+        
+        yarp::sig::Vector x, o;
+        arm->getPose(neck_base_axis, x, o);
+        auto& b = log.prepare();
+        b.clear();
+        b.addDouble(yarp::math::norm(neck_base_x0 - x));
+        log.writeStrict();
+
         return true;
     }
 };

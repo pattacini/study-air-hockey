@@ -11,8 +11,17 @@
 
   <module>
       <name>study-air-hockey</name>
-      <parameters>--torso-n 3</parameters>
+      <parameters>--torso-n 1</parameters>
       <environment>YARP_FORWARD_LOG_ENABLE=1;YARP_CLOCK=/clock</environment>
+      <node>localhost</node>
+  </module>
+
+  <module>
+      <name>yarpscope</name>
+      <parameters>--remote /study-arm-hockey/log --index 0 --min 0.0 --max 0.2</parameters>
+      <dependencies>
+         <port timeout="20">/study-arm-hockey/log</port>
+      </dependencies>
       <node>localhost</node>
   </module>
 
