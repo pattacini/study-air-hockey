@@ -11,6 +11,7 @@
 
   <module>
       <name>study-air-hockey</name>
+      <parameters>--torso-n 3</parameters>
       <environment>YARP_FORWARD_LOG_ENABLE=1;YARP_CLOCK=/clock</environment>
       <node>localhost</node>
   </module>
