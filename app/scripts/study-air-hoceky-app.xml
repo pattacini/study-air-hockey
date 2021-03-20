@@ -1,0 +1,18 @@
+<application>
+
+  <name>Study Air Hockey App</name>
+
+  <dependencies>
+      <port>/yarplogger</port>
+      <port>/icubSim/cartesianController/left_arm/state:o</port>
+      <port>/icubSim/cartesianController/right_arm/state:o</port>
+      <port>/iKinGazeCtrl/rpc</port>
+  </dependencies>
+
+  <module>
+      <name>study-air-hockey</name>
+      <environment>YARP_FORWARD_LOG_ENABLE=1;YARP_CLOCK=/clock</environment>
+      <node>localhost</node>
+  </module>
+
+</application>
