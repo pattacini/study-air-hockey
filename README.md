@@ -12,6 +12,8 @@ slow if compared with the velocities at stake. To get around this problem, one c
 solving IK offline and thus running at full speed being liminted only by other low-level factors
 such as PID controllers.
 
+The problem has been analyzed and tackled in the following [studies](#-studies).
+
 # ⚙ Build
 ```sh
 $ mkdir build && cd build
