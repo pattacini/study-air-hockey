@@ -9,8 +9,8 @@ to minimize the effects of the ego-motion in the camera images.
 
 The standard approach that recruits IK and head stabilization via inertial feedback tends to be
 slow if compared with the velocities at stake. To get around this problem, one could consider
-solving IK offline and thus running at full speed being liminted only by other low-level factors
-such as PID controllers.
+solving IK offline and thus running at full speed being limited only by other low-level factors
+such as the performance of the PID controllers.
 
 The problem has been analyzed and tackled in the following [studies](#-studies).
 
