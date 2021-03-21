@@ -3,13 +3,24 @@ Study on Air Hockey
 
 [![Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/pattacini/study-air-hockey)
 
+# ℹ The Problem
+While iCub plays air hockey, it is required to keep the gaze as stationary as possible in order
+to minimize the effects of the ego-motion in the camera images.
+
+The standard approach that recruits IK and head stabilization via inertial feedback tends to be
+slow if compared with the velocities at stake. To get around this problem, one could consider
+solving IK offline and thus running at full speed being liminted only by other low-level factors
+such as PID controllers.
+
 # ⚙ Build
 ```sh
 $ mkdir build && cd build
 $ cmake ..
 $ make install
 ```
-The code has been tested in Gitpod.
+The code has been tested in [Gitpod](https://gitpod.io) 🌐
+
+Find out more on [YARP-enabled Gitpod workspaces](https://github.com/robotology/community/discussions/459) 🔎
 
 # ▶ Run
 Just run `yarpserver`, launch first the [`system app`](./app/scripts/study-air-hockey-system.xml)
