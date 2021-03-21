@@ -41,7 +41,7 @@ where the columns have the following meaning:
 | :---: | :---: | :---: | :---: |
 | end-effector y-coordinate | torso joints (reversed order) | arm joints | head joints |
 
-You can also plot the content of the table by doing
+We can also plot the content of the table by doing
 ```sh
 $ cd plotting
 $ ./plot.sh <path-to-the-table-file>
