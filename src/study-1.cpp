@@ -51,7 +51,7 @@ class ControllerModule: public yarp::os::RFModule
     static constexpr double wait_ping{.1};
     static constexpr double wait_tmo{3.};
 
-    std::string context_path;
+    std::string tablename;
     typedef std::tuple<double, yarp::sig::Vector, yarp::sig::Vector> Entry;
     std::vector<Entry> table;
 
@@ -91,7 +91,7 @@ class ControllerModule: public yarp::os::RFModule
 
     /********************************************************************/
     bool configure(yarp::os::ResourceFinder& rf) override {
-        context_path = rf.getHomeContextPath();
+        tablename = rf.getHomeContextPath() + "/" + rf.check("table-name", yarp::os::Value("table.tsv")).asString();
         const auto torso_joints = rf.check("torso-joints", yarp::os::Value(1)).asInt();
         const auto torso_pitch = rf.check("torso-pitch", yarp::os::Value(30.)).asDouble();
         y_max = std::abs(rf.check("y-max", yarp::os::Value(.15)).asDouble());
@@ -156,8 +156,7 @@ class ControllerModule: public yarp::os::RFModule
     /********************************************************************/
     auto writeTable() {
         std::sort(begin(table), end(table), helperCompareEntries);
-        const auto filename = context_path + "/table.ini";
-        std::ofstream fout(filename);
+        std::ofstream fout(tablename);
         if (fout.is_open()) {
             for (const auto& entry:table) {
                 const auto& y = std::get<0>(entry);
@@ -168,10 +167,10 @@ class ControllerModule: public yarp::os::RFModule
                      << q_gaze.toString() << std::endl;
             }
             fout.close();
-            yInfo() << "Table written to" << filename;
+            yInfo() << "Table written to" << tablename;
             return true;
         } else {
-            yError() << "Unable to write to file" << filename;
+            yError() << "Unable to write to file" << tablename;
             return false;
         }
     }

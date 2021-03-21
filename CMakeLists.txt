@@ -25,5 +25,7 @@ install(TARGETS ${PROJECT_NAME}-1 DESTINATION bin)
 
 icubcontrib_add_uninstall_target()
 
+file(GLOB conf ${CMAKE_SOURCE_DIR}/app/conf/*.ini ${CMAKE_SOURCE_DIR}/app/conf/*.tsv)
 file(GLOB scripts ${CMAKE_SOURCE_DIR}/app/scripts/*.xml)
+yarp_install(FILES ${conf} DESTINATION ${ICUBCONTRIB_CONTEXTS_INSTALL_DIR}/${PROJECT_NAME})
 yarp_install(FILES ${scripts} DESTINATION ${ICUBCONTRIB_APPLICATIONS_INSTALL_DIR})
