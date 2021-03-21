@@ -1,0 +1,20 @@
+<application>
+
+  <name>Study Air Hockey App 2</name>
+
+  <dependencies>
+      <port>/yarplogger</port>
+      <port>/icubSim/torso/state:o</port>
+      <port>/icubSim/left_arm/state:o</port>
+      <port>/icubSim/right_arm/state:o</port>
+      <port>/icubSim/head/state:o</port>
+  </dependencies>
+
+  <module>
+      <name>study-air-hockey-2</name>
+      <parameters>--T 1.0 --table-file table.tsv</parameters>
+      <environment>YARP_FORWARD_LOG_ENABLE=1;YARP_CLOCK=/clock</environment>
+      <node>localhost</node>
+  </module>
+
+</application>

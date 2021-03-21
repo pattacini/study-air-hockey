@@ -22,6 +22,7 @@
 #include <yarp/os/LogStream.h>
 #include <yarp/os/Value.h>
 #include <yarp/os/Property.h>
+#include <yarp/os/Bottle.h>
 #include <yarp/os/RFModule.h>
 #include <yarp/os/ResourceFinder.h>
 #include <yarp/os/Time.h>
@@ -51,7 +52,7 @@ class ControllerModule: public yarp::os::RFModule
     static constexpr double wait_ping{.1};
     static constexpr double wait_tmo{3.};
 
-    std::string tablename;
+    std::string table_file;
     typedef std::tuple<double, yarp::sig::Vector, yarp::sig::Vector> Entry;
     std::vector<Entry> table;
 
@@ -91,7 +92,8 @@ class ControllerModule: public yarp::os::RFModule
 
     /********************************************************************/
     bool configure(yarp::os::ResourceFinder& rf) override {
-        tablename = rf.getHomeContextPath() + "/" + rf.check("table-name", yarp::os::Value("table.tsv")).asString();
+        table_file = rf.getHomeContextPath() + "/" +
+                     rf.check("table-file", yarp::os::Value("table.tsv")).asString();
         const auto torso_joints = rf.check("torso-joints", yarp::os::Value(1)).asInt();
         const auto torso_pitch = rf.check("torso-pitch", yarp::os::Value(30.)).asDouble();
         y_max = std::abs(rf.check("y-max", yarp::os::Value(.15)).asDouble());
@@ -156,21 +158,24 @@ class ControllerModule: public yarp::os::RFModule
     /********************************************************************/
     auto writeTable() {
         std::sort(begin(table), end(table), helperCompareEntries);
-        std::ofstream fout(tablename);
+        std::ofstream fout(table_file);
         if (fout.is_open()) {
-            for (const auto& entry:table) {
-                const auto& y = std::get<0>(entry);
-                const auto& q_arm = std::get<1>(entry);
-                const auto& q_gaze = std::get<2>(entry);
+            for (auto entry = table.begin(); entry != table.end(); entry++) {
+                const auto& y = std::get<0>(*entry);
+                const auto& q_arm = std::get<1>(*entry);
+                const auto& q_gaze = std::get<2>(*entry);
                 fout << y << " "
                      << q_arm.toString() << " "
-                     << q_gaze.toString() << std::endl;
+                     << q_gaze.toString();
+                if (entry != table.end() - 1) {
+                    fout << std::endl;
+                }
             }
             fout.close();
-            yInfo() << "Table written to" << tablename;
+            yInfo() << "Table written to" << table_file;
             return true;
         } else {
-            yError() << "Unable to write to file" << tablename;
+            yError() << "Unable to write to file" << table_file;
             return false;
         }
     }

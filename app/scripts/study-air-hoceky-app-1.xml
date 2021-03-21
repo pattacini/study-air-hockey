@@ -11,7 +11,7 @@
 
   <module>
       <name>study-air-hockey-1</name>
-      <parameters>--x0 "(-.25 .0 -.05)" --fixation "(-.7 .0 -.05)" --y-max 0.15 --y-delta 0.005 --torso-joints 1 --torso-pitch 30.0 --table-name table.tsv</parameters>
+      <parameters>--x0 "(-.25 .0 -.05)" --fixation "(-.7 .0 -.05)" --y-max 0.15 --y-delta 0.005 --torso-joints 1 --torso-pitch 30.0 --table-file table.tsv</parameters>
       <environment>YARP_FORWARD_LOG_ENABLE=1;YARP_CLOCK=/clock</environment>
       <node>localhost</node>
   </module>
