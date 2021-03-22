@@ -15,6 +15,7 @@
 #include <iterator>
 #include <algorithm>
 #include <string>
+#include <sstream>
 #include <vector>
 #include <fstream>
 
@@ -83,6 +84,18 @@ class ControllerModule: public yarp::os::RFModule
                 }
             }
         }
+    }
+
+    /********************************************************************/
+    const auto helperToString(const yarp::sig::Vector& v) const {
+        std::ostringstream str;
+        for (auto it = v.begin(); it != v.end(); it++) {
+            str << *it;
+            if (it != v.end() - 1) {
+                str << "\t";
+            }
+        }
+        return str.str();
     }
 
     /**************************************************************************/
@@ -164,9 +177,9 @@ class ControllerModule: public yarp::os::RFModule
                 const auto& y = std::get<0>(*entry);
                 const auto& q_arm = std::get<1>(*entry);
                 const auto& q_gaze = std::get<2>(*entry);
-                fout << y << " "
-                     << q_arm.toString() << " "
-                     << q_gaze.toString();
+                fout << y << "\t"
+                     << helperToString(q_arm) << "\t"
+                     << helperToString(q_gaze);
                 if (entry != table.end() - 1) {
                     fout << std::endl;
                 }
