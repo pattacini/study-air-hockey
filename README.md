@@ -1,7 +1,7 @@
 Study on Air Hockey
 ===================
 
-[![Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/pattacini/study-air-hockey)
+[![Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/from-referrer)
 
 # ℹ The Problem
 While iCub plays air hockey, it is required to keep the gaze as stationary as possible in order
