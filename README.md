@@ -15,10 +15,10 @@ such as the performance of the PID controllers.
 The problem has been analyzed and tackled in the following [studies](#-studies).
 
 # ⚙ Build
-```sh
-$ mkdir build && cd build
-$ cmake ..
-$ make install
+```console
+mkdir build && cd build
+cmake ..
+make install
 ```
 The code has been tested in [Gitpod](https://gitpod.io) 🌐
 
@@ -42,9 +42,9 @@ where the columns have the following meaning:
 | end-effector y-coordinate | torso joints (reversed order) | arm joints | head joints |
 
 We can also plot the content of the table by doing
-```sh
-$ cd plotting
-$ ./plot.sh <path-to-the-table-file>
+```console
+cd plotting
+./plot.sh <path-to-the-table-file>
 ```
 and thus getting something like the following graph:
 
