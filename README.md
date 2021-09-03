@@ -16,9 +16,9 @@ The problem has been analyzed and tackled in the following [studies](#-studies).
 
 # ⚙ Build
 ```console
-mkdir build && cd build
-cmake ..
-make install
+cmake -S . -B build
+cmake --build build
+cmake --install build
 ```
 The code has been tested in [Gitpod](https://gitpod.io) 🌐
 
