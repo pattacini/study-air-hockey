@@ -17,7 +17,7 @@ The problem has been analyzed and tackled in the following [studies](#-studies).
 # ⚙ Build
 ```console
 cmake -S . -B build
-cmake --build build --target install
+cmake --build build/ --target install
 ```
 The code has been tested in [Gitpod](https://gitpod.io) 🌐
 
