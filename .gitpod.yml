@@ -1,4 +1,6 @@
 image: ghcr.io/vvv-school/gitpod:latest
+additionalRepositories:
+- url: https://github.com/ttk592/spline
 ports:
 - port: 6080
   onOpen: notify
@@ -9,4 +11,4 @@ tasks:
 - init: init-icubcontrib.sh
 - command: start-vnc-session.sh
 - command: gp ports await 6080 && gp preview $(gp url 6080)
-- command: git clone https://github.com/ttk592/spline.git /workspace/spline
+
