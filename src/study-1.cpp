@@ -80,7 +80,7 @@ class ControllerModule: public yarp::os::RFModule
         if (rf.check(option_name)) {
             if (const yarp::os::Bottle* b = rf.find(option_name).asList()) {
                 for (size_t i = 0; i < std::min(v.length(), b->size()); i++) {
-                    v[i] = b->get(i).asDouble();
+                    v[i] = b->get(i).asFloat64();
                 }
             }
         }
@@ -107,10 +107,10 @@ class ControllerModule: public yarp::os::RFModule
     bool configure(yarp::os::ResourceFinder& rf) override {
         table_file = rf.getHomeContextPath() + "/" +
                      rf.check("table-file", yarp::os::Value("table.tsv")).asString();
-        const auto torso_joints = rf.check("torso-joints", yarp::os::Value(1)).asInt();
-        const auto torso_pitch = rf.check("torso-pitch", yarp::os::Value(30.)).asDouble();
-        y_max = std::abs(rf.check("y-max", yarp::os::Value(.15)).asDouble());
-        y_delta = std::abs(rf.check("y-delta", yarp::os::Value(.005)).asDouble());
+        const auto torso_joints = rf.check("torso-joints", yarp::os::Value(1)).asInt32();
+        const auto torso_pitch = rf.check("torso-pitch", yarp::os::Value(30.)).asFloat64();
+        y_max = std::abs(rf.check("y-max", yarp::os::Value(.15)).asFloat64());
+        y_delta = std::abs(rf.check("y-delta", yarp::os::Value(.005)).asFloat64());
         helperFillVector(rf, "x0", x0);
         helperFillVector(rf, "fixation", fixation);
 

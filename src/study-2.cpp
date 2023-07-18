@@ -135,7 +135,7 @@ class ControllerModule: public yarp::os::RFModule
     /********************************************************************/
     bool configure(yarp::os::ResourceFinder& rf) override {
         table_file = rf.findFile("table-file");
-        const auto T = std::abs(rf.check("T", yarp::os::Value(1.)).asDouble());
+        const auto T = std::abs(rf.check("T", yarp::os::Value(1.)).asFloat64());
 
         if (!readTable()) {
             return false;
@@ -171,7 +171,7 @@ class ControllerModule: public yarp::os::RFModule
     /********************************************************************/
     bool updateModule() override {
         if (auto* b = targetPort.read(false)) {
-            const auto p = (b->get(0).asDouble() * (y_max - y_min) + (y_max + y_min)) / 2.;
+            const auto p = (b->get(0).asFloat64() * (y_max - y_min) + (y_max + y_min)) / 2.;
             target[0] = std::max(std::min(p, y_max), y_min);
         }
         reference->computeNextValues(target);
