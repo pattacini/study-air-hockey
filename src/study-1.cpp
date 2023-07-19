@@ -148,7 +148,7 @@ class ControllerModule: public yarp::os::RFModule
                 arm->setLimits(1, 0., 0.);
         }
 
-        yarp::sig::Matrix R = yarp::math::zeros(3, 3);
+        auto R = yarp::math::zeros(3, 3);
         R(0, 0) = -1.; R(2, 1) = -1.; R(1, 2) = -1.;
         o0 = yarp::math::dcm2axis(R);
         arm->goToPoseSync(x0, o0);
