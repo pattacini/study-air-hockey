@@ -76,7 +76,7 @@
         <port timeout="20">/yarplogger</port>
         <port timeout="20">/icubSim/torso/state:o</port>
         <port timeout="20">/icubSim/head/state:o</port>
-        <port timeout="20">/icubSim/inertial</port>
+        <port timeout="20">/icubSim/head/inertials/measures:o</port>
     </dependencies>
     <environment>YARP_FORWARD_LOG_ENABLE=1;YARP_CLOCK=/clock</environment>
     <ensure>

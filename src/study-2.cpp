@@ -186,7 +186,7 @@ class ControllerModule: public yarp::os::RFModule
         for (size_t i = 0; i < pos_arm.size(); i++) {
             pos_arm[i] = interp[pos_torso.size() + i]->operator()(reference->getPos()[0]);
         }
-        iposd[1]->setPositions(pos_arm.size(), std::vector<int>({0, 1, 2, 3, 4, 5, 6, 7}).data(),
+        iposd[1]->setPositions(pos_arm.size(), std::vector<int>({0, 1, 2, 3, 4, 5, 6}).data(),
                               pos_arm.data());
 
         std::vector<double> pos_head(6);
